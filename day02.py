@@ -1,4 +1,4 @@
-
+# Day two
 
 def smallest_margin_dimentions(dims):
     return min(dims[0], dims[1]), min(max(dims[0],dims[1]),dims[2])
