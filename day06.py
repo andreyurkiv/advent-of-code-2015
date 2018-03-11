@@ -1,4 +1,4 @@
-# Day six 
+# Day six
 
 
 def the_lights_go_out(filename):
