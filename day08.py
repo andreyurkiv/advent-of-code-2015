@@ -1,7 +1,9 @@
+# Day 8
+
 import re
 
 filename = 'puzzle_inputs/day08.txt'
-testname = 'puzzle_inputs/test.txt'
+testname = 'puzzle_inputs/testfile.txt'
 
 
 def output(s):
@@ -34,18 +36,39 @@ def decode(filename, test=False):
             if test: output(hex_free)
 
             memory += len(hex_free)
-    return literal, memory
+    return literal - memory
 
 def encode(filename, test=False):
-    pass
+    literal = 0
+    memory = 0
+
+    with open(filename) as file:
+        for line in file:
+
+            line = line.strip()
+            if test: output(line)
+
+            literal += len(line)
+
+            slash = line.replace('\\', '\\\\')
+            if test: output(slash)
+
+            quote = slash.replace('"','\\"')
+            if test: output(quote)
+
+            final = '"' + quote + '"'
+            if test: output(final)
+
+            memory += len(final)
+    return memory - literal
 
 
-display, in_memory  = decode(filename)
 
+# Task 1
+print(decode(filename))
 
-print(display)
-print(in_memory)
-print(display - in_memory)
+# Task 2
+print(encode(filename))
 
 
 
