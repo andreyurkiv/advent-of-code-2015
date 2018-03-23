@@ -21,15 +21,15 @@ class Reindeer:
         resting = False
         distance = 0
 
-        while time >= 0:
+        while time > 0:
             if resting:
                 time -= self.rest
                 resting = False
             else:
                 if time <= self.fly:
-                    time = 0
                     distance += self.speed * time
                     resting = True
+                    time = 0
                 else:
                     time -= self.fly
                     distance += self.speed * self.fly
@@ -48,6 +48,9 @@ def parse(filename):
     return deers
 
 
+deers = parse(file)
+
+
 def max_distance(deers, time):
 
     max_distance = 0
@@ -58,9 +61,35 @@ def max_distance(deers, time):
             max_distance = dist
     return max_distance
 
-print(max_distance(parse(file), 2503))
+print('Task 1')
+print('Distance travelled by the fastest deer: {}'.format(max_distance(deers, 2503)))
 
-# Task 2 
+# Task 2
+
+def get_leaders(scores):
+    leaders = []
+    lead_distance = max(scores.values())
+    for d in scores.keys():
+        if scores[d] == lead_distance:
+            leaders.append(d)
+    return leaders
 
 
+def max_points(deers, time):
 
+    points = {}
+
+    for deer in deers:
+        points[deer.name] = 0
+
+    for t in range(1, time+1):
+
+        scores = {}
+        for deer in deers:
+            scores[deer.name] = deer.run(t)
+        for leader in get_leaders(scores):
+            points[leader] += 1
+    return points
+
+print('Task 2')
+print(max_points(deers, 2503))
